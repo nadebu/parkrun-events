@@ -1,8 +1,5 @@
-import requests
-import json
-import datetime
-
 import pandas as pd
+import requests
 
 UK_COUNTRY_CODE = 97
 
@@ -31,14 +28,12 @@ for feature in result_json["events"]["features"]:
 
     events.append(output_dict)
 
-print(len(events))
-
 df = pd.DataFrame(events)
 
 df["is_junior_event"] = df["name"].str.contains("junior")  # Identifies junior events
 
-df.to_csv("Global events.csv", index=False, header=True)
+df.to_csv("output/Global events.csv", index=False, header=True)
 
 # UK has a country code of 97
 uk_events = df[df.country_code == UK_COUNTRY_CODE].drop(["country_code"], axis=1)
-uk_events.to_csv("UK Events.csv", index=False, header=True)
+uk_events.to_csv("output/UK Events.csv", index=False, header=True)
